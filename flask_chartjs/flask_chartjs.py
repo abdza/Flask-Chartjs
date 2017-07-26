@@ -1,4 +1,4 @@
-from flask import current_app, Markup, Blueprint, render_template
+from flask import current_app, Markup, Blueprint, render_template, g
 
 try:
     from flask import _app_ctx_stack as stack
@@ -7,8 +7,11 @@ except ImportError:
 
 class Chart(object):
 
-    def __init__(self,title='No title'):
+    def __init__(self,title='No title',chart_type='bar'):
         self.title = title
+        self.type = chart_type
+        self.datasets = {
+                }
 
     @property
     def js(self):
@@ -31,6 +34,13 @@ class Chart(object):
     def render(self, *args, **kwargs):
         return render_template(*args, **kwargs)
 
+def set_chartjs_loaded():
+    g.chartjs_loaded = True
+    return ''
+
+def is_chartjs_loaded():
+    return getattr(g, 'chartjs_loaded', False)
+
 class ChartJs(object):
 
     def __init__(self, app=None):
@@ -44,8 +54,10 @@ class ChartJs(object):
 
     def register_blueprint(self, app):
         module = Blueprint(
-                "chartjs", __name__, template_folder="templates"
+                "chartjs", __name__, template_folder="templates", static_folder="static"
                 )
         app.register_blueprint(module)
+        app.add_template_global(is_chartjs_loaded)
+        app.add_template_global(set_chartjs_loaded)
         return module
 
