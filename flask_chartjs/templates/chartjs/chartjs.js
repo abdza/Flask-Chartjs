@@ -12,6 +12,7 @@ var {{ chart.title | lower | replace(' ','_') }}_chart = new Chart($('#{{ chart.
 		{
 			label: '{{ds.label}}',
 			data: {{ds.data}},
+			backgroundColor: {% if ds.backgroundColor is string %}"{{ds.backgroundColor}}"{% else %}["{{ ds.backgroundColor|join('","')}}"]{% endif %}
 		},
 		{% endfor %}
 		],
