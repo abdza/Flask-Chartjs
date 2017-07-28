@@ -3,7 +3,7 @@
 {{ set_chartjs_loaded() }}
 {% endif %}
 <script>
-var {{ chart.title | lower | replace(' ','_') }}_chart = new Chart($('#{{ chart.title | lower | replace(' ','_') }}'), {
+var {{ chart.slug }}_chart = new Chart($('#{{ chart.slug }}'), {
 	type:'{{chart.type}}',
 	data: {
 		labels: {{chart.labels}},

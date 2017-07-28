@@ -1,4 +1,5 @@
 from flask import current_app, Markup, Blueprint, render_template, g
+import re
 
 try:
     from flask import _app_ctx_stack as stack
@@ -7,8 +8,12 @@ except ImportError:
 
 class Chart(object):
 
-    def __init__(self,title='No title',chart_type='bar'):
+    def __init__(self,title='No title',chart_type='bar',slug=None):
         self.title = title
+        if slug:
+            self.slug = slug
+        else:
+            self.slug = re.sub(r'\W+','_',str(title))
         self.type = chart_type
         self.datasets = {
                 }
