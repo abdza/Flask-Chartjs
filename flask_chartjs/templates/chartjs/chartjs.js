@@ -18,4 +18,10 @@ var {{ chart.slug }}_chart = new Chart($('#{{ chart.slug }}'), {
 		],
 	}
 });
+{% if chart.click %}
+$('#{{chart.slug}}').on('click',function(evt){
+	var activepoints = {{ chart.slug }}_chart.getElementsAtEvent(evt);
+	{{chart.click}}(evt,activepoints);
+});
+{% endif %}
 </script>

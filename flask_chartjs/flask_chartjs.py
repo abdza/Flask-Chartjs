@@ -8,13 +8,14 @@ except ImportError:
 
 class Chart(object):
 
-    def __init__(self,title='No title',chart_type='bar',slug=None):
+    def __init__(self,title='No title',chart_type='bar',slug=None,click=None):
         self.title = title
         if slug:
             self.slug = slug
         else:
             self.slug = re.sub(r'\W+','_',str(title))
         self.type = chart_type
+        self.click = click
         self.datasets = {
                 }
 
