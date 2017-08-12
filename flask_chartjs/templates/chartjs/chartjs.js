@@ -1,6 +1,5 @@
 {% if not is_chartjs_loaded() %}
 <script src="{{ url_for('static',filename='js/Chart.bundle.min.js') }}"></script>
-<script src="{{ url_for('static',filename='js/Chart.PieceLabel.js') }}"></script>
 {{ set_chartjs_loaded() }}
 {% endif %}
 <script>
